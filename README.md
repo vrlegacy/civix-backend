@@ -19,7 +19,7 @@ live application : https://civix-zeta.vercel.app/
 
 ### 🎥 Demo Video Walkthrough
 You can download and watch the full video walkthrough:
-* [Download Demo Video (civix-video.mp4)](https://github.com/vrlegacy/civix-backend/blob/main/civix-video.mp4)
+* [Download Demo Video (civix-video.mp4)]([https://github.com/vrlegacy/civix-backend/blob/main/civix-video.mp](https://drive.google.com/file/d/1uhYGms1CHXoL4E4Js9MHp-OCbBMd6e3g/view?usp=sharing)
 
 ---
 
