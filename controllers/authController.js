@@ -64,8 +64,9 @@ exports.signup = async (req, res) => {
 
     await pendingUser.save();
 
-    // Send verification email
-    await sendVerificationEmail(pendingUser.email, pendingUser.name, verificationToken);
+    // Send verification email (asynchronously to avoid blocking the response)
+    sendVerificationEmail(pendingUser.email, pendingUser.name, verificationToken)
+      .catch(err => console.error("Failed to send verification email:", err.message || err));
 
     res.status(201).json({
       message: "Verification link sent to user's email.",
@@ -215,7 +216,9 @@ exports.forgotPassword = async (req, res) => {
     user.resetTokenExpiry = tokenExpiry;
     await user.save();
 
-    await sendResetEmail(user.email, user.name, resetToken);
+    // Send reset email (asynchronously to avoid blocking the response)
+    sendResetEmail(user.email, user.name, resetToken)
+      .catch(err => console.error("Failed to send reset email:", err.message || err));
 
     return res.status(200).json({
       success: true,

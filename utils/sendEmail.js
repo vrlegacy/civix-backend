@@ -12,6 +12,7 @@ const getTransporter = () => {
 
 exports.sendResetEmail = async (email, name, token) => {
   const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5173"}/reset-password?token=${token}`;
+  console.log(`🔑 [Reset Password Link] Email: ${email} | URL: ${resetUrl}`);
   const transporter = getTransporter();
   
   await transporter.sendMail({
@@ -36,6 +37,7 @@ exports.sendResetEmail = async (email, name, token) => {
 
 exports.sendVerificationEmail = async (email, name, token) => {
   const verifyUrl = `${process.env.FRONTEND_URL || "http://localhost:5173"}/verify-email?token=${token}`;
+  console.log(`📧 [Verification Link] Email: ${email} | URL: ${verifyUrl}`);
   const transporter = getTransporter();
   
   await transporter.sendMail({
