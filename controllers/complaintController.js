@@ -29,14 +29,16 @@ exports.createComplaint = async (req, res) => {
     
     await complaint.save();
     
-    // Notify citizen about complaint submission
-    try {
-      const citizen = await User.findById(req.userid).select('email');
-      if (citizen && citizen.email) {
-        await sendComplaintConfirmation(citizen.email, complaint._id);
-      }
-    } catch (err) {
-      console.error('Failed to send complaint confirmation:', err.message || err);
+    // Notify citizen about complaint submission (asynchronously to avoid blocking the response)
+    if (req.userid) {
+      User.findById(req.userid).select('email')
+        .then(citizen => {
+          if (citizen && citizen.email) {
+            sendComplaintConfirmation(citizen.email, complaint._id)
+              .catch(err => console.error('Failed to send complaint confirmation:', err.message || err));
+          }
+        })
+        .catch(err => console.error('Failed to find user for confirmation:', err.message || err));
     }
     
     res.json(complaint);
@@ -70,15 +72,16 @@ exports.assignComplaint = async (req, res) => {
     { assigned_to: volunteerId, status: "in_review" },
     { new: true }
   );
-  // notify the real volunteer email (if available)
-  try {
-    const volunteer = await User.findById(volunteerId).select("email name");
-    if (volunteer && volunteer.email) {
-      await notifyVolunteerAssignment(volunteer.email, complaint._id);
-    }
-  } catch (err) {
-    // don't fail the request if notification fails; log and continue
-    console.error("Failed to notify volunteer:", err.message || err);
+  // notify the real volunteer email (if available) asynchronously to avoid blocking the response
+  if (volunteerId) {
+    User.findById(volunteerId).select("email name")
+      .then(volunteer => {
+        if (volunteer && volunteer.email) {
+          notifyVolunteerAssignment(volunteer.email, complaint._id)
+            .catch(err => console.error("Failed to notify volunteer:", err.message || err));
+        }
+      })
+      .catch(err => console.error("Failed to find volunteer for notification:", err.message || err));
   }
   res.json(complaint);
 };
