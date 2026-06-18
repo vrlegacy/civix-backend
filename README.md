@@ -1,9 +1,11 @@
 # Civix Backend API
-frontend repo : https://github.com/vrlegacy/civix-frontend
-live application :https://civix-zeta.vercel.app/
+
 The backend REST API for **Civix** — a digital civic engagement platform designed to empower citizens, facilitate communication with officials, enable democratic polls, coordinate volunteer support, and analyze community sentiment.
 
 ---
+frontend repo : https://github.com/vrlegacy/civix-frontend
+
+live application :https://civix-zeta.vercel.app/
 
 ## 🚀 Key Features
 
