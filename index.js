@@ -7,7 +7,7 @@ const connectDB = require("./config/db");
 
 // Load environment variables
 dotenv.config();
-
+//added new comment 
 // Initialize app
 const app = express();
 
