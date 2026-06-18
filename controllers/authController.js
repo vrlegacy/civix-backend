@@ -47,6 +47,30 @@ exports.signup = async (req, res) => {
     const salt = await bcrypt.genSalt(12);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Check if we should bypass verification (e.g. on Render free tier due to SMTP blocks)
+    const bypassVerification = process.env.BYPASS_EMAIL_VERIFICATION === "true";
+
+    if (bypassVerification) {
+      // Create verified user directly
+      user = new User({
+        name,
+        email: email.toLowerCase(),
+        password: hashedPassword,
+        role: role || "citizen",
+        location,
+        latitude,
+        longitude,
+      });
+
+      await user.save();
+
+      return res.status(201).json({
+        message: "User registered successfully!",
+        success: true,
+        requiresVerification: false,
+      });
+    }
+
     // Generate token
     const verificationToken = crypto.randomBytes(32).toString("hex");
 
@@ -71,6 +95,7 @@ exports.signup = async (req, res) => {
     res.status(201).json({
       message: "Verification link sent to user's email.",
       success: true,
+      requiresVerification: true,
     });
   } catch (error) {
     console.error("Signup error:", error.message);
