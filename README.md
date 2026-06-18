@@ -5,7 +5,23 @@ The backend REST API for **Civix** — a digital civic engagement platform desig
 ---
 frontend repo : https://github.com/vrlegacy/civix-frontend
 
-live application :https://civix-zeta.vercel.app/
+live application : https://civix-zeta.vercel.app/
+
+---
+
+## 📸 App Interface & Demos
+
+### 🏠 Home Page
+![Civix Home Screen](https://res.cloudinary.com/dwbj1dnak/image/upload/v1781766842/civix_assets/qnjtkd32dhj47dur67o6.png)
+
+### 📊 Dashboard
+![Civix Dashboard Screen](https://res.cloudinary.com/dwbj1dnak/image/upload/v1781766843/civix_assets/fwedsbl2tjkvtnqb6klv.png)
+
+### 🎥 Demo Video Walkthrough
+You can download and watch the full video walkthrough:
+* [Download Demo Video (civix-video.mp4)](https://github.com/vrlegacy/civix-backend/blob/main/civix-video.mp4)
+
+---
 
 ## 🚀 Key Features
 
